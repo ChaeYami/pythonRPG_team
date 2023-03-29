@@ -58,16 +58,15 @@ def player_turn(Player, Monsters):
     try:
         other = input('\n ...  ▶ 공격 대상을 선택하세요 (이름입력) : ')
 
-        command = int(input(
-            '\n ▶ 공격 방법을 선택하세요 (숫자 입력)\n [1. 일반 공격 | 2. 특수 공격] : '))
+        command = int(input('\n ▶ 공격 방법을 선택하세요 (숫자 입력)\n [1. 일반 공격 | 2. 특수 공격] : '))
 
-        if command == '1':
+        if command == int(1):
             Player.attack(Monsters[other])
-        elif command == '2':
+        elif command == int(2):
             use_mp(50)
         else:
-            print("알맞은 공격 방법을 선택하세요")
-            player_turn(Player, Monsters)
+            print("알맞은 공격방법을 선택하세요")
+            return player_turn(Player, Monsters)
         return Monsters
     
     except KeyError as e:  # 이미 죽은 몬스터를 선택했을 때

@@ -24,7 +24,7 @@ class Character:
     def attack(self, other): 
         damage = random.randint(self.power * 0.8, self.power * 1.2)
         other.hp = max(other.hp - damage, 0)
-        print(f"{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
+        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
         else:
