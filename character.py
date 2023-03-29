@@ -4,6 +4,8 @@ import random
 
 # ---------- 플레이어 이름 받아오기 ----------
 global_name = input('\n용사님의 이름을 입력하세요 : ')
+global_job = int(input("직업선택 | 1.마법사 2.전사 3.뱀파이어 | : "))
+
 
 
 class Character:
@@ -104,12 +106,12 @@ class Vampire(Character):
         
     def magic_attack(self,other):
         magic_damage = random.randint(self.magic_power * 0.9, self.magic_power * 1.5)
-        exhausted_hp = self.max_hp-self.hp
-        heal_amount = int(exhausted_hp * 0.4)
+        heal_amount = int((self.max_hp-self.hp) * 0.4)
+        
+        other.hp = max(other.hp - magic_damage, 0)
         self.hp += heal_amount
         self.mp -= 50
         print(f"\033[38;2;161;196;255m\n .. 흡혈! | {other.name}에게 {magic_damage}의 피해를 주었습니다! \n .. 체력을 {heal_amount}만큼 회복했습니다.({self.hp}/{self.max_hp})\033[0m")
-        print(f" .. 남은 마력: {self.mp}/{self.max_mp}")
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
             
