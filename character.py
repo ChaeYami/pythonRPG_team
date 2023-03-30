@@ -32,7 +32,7 @@ class Character:
 
     # 상태창
     def show_status(self):
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
+        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
 
     '''
     어차피 플레이어의 특수 공격 함수는 각 직업 클래스에 있기 때문에 이 함수는 필요 없습니다.
@@ -63,17 +63,13 @@ class Wizard(Character):
         super().__init__(name, hp, power, magic_power, mp)
 
         self.job = '마법사'  # 콘솔 출력을 위한 문자열
-
+        
     def attack(self, other):
+        super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         self.point += round(damage*0.4)
         print(f"\n   포인트 +{round(damage*0.4)}")
-        if other.hp == 0:
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-        else:
-            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
+
 
     def magic_attack(self, other):  # 특수공격
         # 특수공격 데미지
@@ -92,9 +88,6 @@ class Wizard(Character):
         else:
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
-    def show_status(self):  # 상태 출력
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
-
 
 """
 전사 클래스 : 체력 12000, 공격력 2500, 특수공격력 3000, 마력 250, 특수공격시 마력소모량 50
@@ -109,15 +102,10 @@ class Warrier(Character):
         self.job = '전사'  # 콘솔 출력을 위한 문자열
 
     def attack(self, other):
+        super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         self.point += round(damage*0.4)
         print(f"\n   포인트 +{round(damage*0.4)}")
-        if other.hp == 0:
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-        else:
-            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
     def magic_attack(self, other):
         magic_damage = random.randint(
@@ -127,7 +115,7 @@ class Warrier(Character):
         print(
             f"\033[38;2;161;196;255m\n .. 몸통박치기! | MP -50 | {other.name}에게 {magic_damage}의 피해를 주었습니다!\033[0m")
 
-        self.mp -= 50
+        self.mp -= 70
         self.point += round(magic_damage*0.4)
         print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
@@ -135,9 +123,6 @@ class Warrier(Character):
             print(f"{other.name}이(가) 쓰러졌습니다.")
         else:
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
-
-    def show_status(self):
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
 
 
 """
@@ -153,15 +138,10 @@ class Vampire(Character):
         self.job = '뱀파이어'  # 콘솔 출력을 위한 문자열
 
     def attack(self, other):
+        super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         self.point += round(damage*0.4)
         print(f"\n   포인트 +{round(damage*0.4)}")
-        if other.hp == 0:
-            print(f"{other.name}이(가) 쓰러졌습니다.")
-        else:
-            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
     def magic_attack(self, other):
         # 특수공격 데미지
@@ -177,7 +157,7 @@ class Vampire(Character):
             f"\033[38;2;161;196;255m\n .. 흡혈! | MP -50 | {other.name}에게 {magic_damage}의 피해를 주었습니다! \n .. 체력을 {heal_amount}만큼 회복했습니다.({self.hp}/{self.max_hp})\033[0m")
 
         self.hp += heal_amount  # 회복
-        self.mp -= 50  # mp 소모
+        self.mp -= 70  # mp 소모
         self.point += round(magic_damage*0.4)
         print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
@@ -188,9 +168,6 @@ class Vampire(Character):
         else:
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
-    def show_status(self):
-        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
-
 
 # ========================== 몬스터 ==========================
 class Monster(Character):
@@ -200,6 +177,9 @@ class Monster(Character):
         self.hp = hp
         self.power = power
         self.round = round
-
+        
+    def show_status(self):
+        print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
+        
     def wait(self):  # 회피함수
         print(f'\n\033[38;2;255;156;166m .. {self.name}의 공격이 빗나갔다!!\033[0m')

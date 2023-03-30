@@ -25,7 +25,6 @@ def get_job():  # 직업 선택할 때도 숫자 외의 값에 에러처리 위�
 
 # ---------- 실행시 출력화면 ----------
 
-
 def start():
 
     print("\n\n -------------------------------------------")
@@ -41,7 +40,6 @@ def start():
     print(" -------------------------------------------")
 
 # ---------- 몬스터들을 저장 ----------
-
 
 def create_monsters(round):
     Monsters = {}
@@ -62,10 +60,10 @@ def player_job(round):
         Hero = Wizard(global_name, 10000+num, 2000+num, 3000+num, 400)
 
     elif global_job == 2:
-        Hero = Warrier(global_name, 12000+num, 2500+num, 3000+num, 250)
+        Hero = Warrier(global_name, 12000+num, 2500+num, 3000+num, 300)
 
     elif global_job == 3:
-        Hero = Vampire(global_name, 10000+num, 2000+num, 2000+num, 250)
+        Hero = Vampire(global_name, 10000+num, 2000+num, 2000+num, 300)
         
     return Hero
 
@@ -84,13 +82,13 @@ def show_start(Player):
 # ---------- 몬스터 상태 ----------
 
 
-def show_monster(Monsters):
+def show_monster(Monsters,round):
     print("\033[38;2;255;177;108m\n     탑을 지키는 몬스터들이 등장했다! \n\033[0m")
 
     for key, name in Monsters.items():  # 몬스터들의 상태 표시
 
         print(
-            f"\033[38;2;255;108;167m    {name.name} \033[38;2;102;255;178m[ HP : {name.hp}/{name.max_hp} | 공격력 : {name.power}]  \033[0m")
+            f"\033[38;2;255;108;167m    {round}층의 {name.name} \033[38;2;102;255;178m[ HP : {name.hp}/{name.max_hp} | 공격력 : {name.power}]  \033[0m")
 
 # 튜토리얼 선택 시 출력
 
@@ -109,19 +107,29 @@ def player_turn(Player, Monsters):
             player_turn(Player, Monsters)
         else:  # 사용가능 - 스킬 사용
             Player.magic_attack(Monsters[other])
-
+            
     # 몬스터 딕셔너리에 없는 대상을 선택했을 시 예외 처리
     try:
-        other = input('\n ...  ▶ 공격 대상을 선택하세요 (이름입력) : ')
-
+        
         # 숫자가 아닌 값을 입력했을 때 예외처리를 위해 전부 정수 처리함
         command = int(
-            input('\n ▶ 공격 방법을 선택하세요 (숫자 입력)\n [1. 일반 공격 | 2. 특수 공격] : '))
-
+            input('\n ▶ 공격 방법을 선택하세요 (숫자 입력)\n [1. 일반 공격 | 2. 특수 공격 | 3. 전체공격(MP 300 이상 필요)] : '))
+        
         if command == int(1):
+            other = input('\n ...  ▶ 공격 대상을 선택하세요 (이름입력) : ')
             Player.attack(Monsters[other])
         elif command == int(2):
+            other = input('\n ...  ▶ 공격 대상을 선택하세요 (이름입력) : ')
             use_mp(50)
+            
+        elif command == int(3):
+            if Player.mp < 300:  # 마력이 부족한 경우
+                print("\n ※ ※ 마력이 부족합니다! ※ ※")
+                player_turn(Player, Monsters)
+            else:    
+                for key, name in Monsters.items():
+                    Player.magic_attack(Monsters[name.name])
+                         
         else:  # 1, 2 번을 제외한 숫자를 입력했을 때
             print("알맞은 공격방법을 선택하세요")
             return player_turn(Player, Monsters)
@@ -135,7 +143,6 @@ def player_turn(Player, Monsters):
         player_turn(Player, Monsters)
 
 # ---------- 몬스터 턴 ----------
-
 
 def monster_turn(Player, Monsters):
     sleep(1)
@@ -168,6 +175,7 @@ def monster_death(Monsters):
 
 
 # ---------- 플레이어 생존 확인 ----------
+
 def player_death(Player):
     if Player.hp <= 0:
         return True
@@ -176,7 +184,6 @@ def player_death(Player):
 
 # ---------- 몬스터 ----------
 
-
 def monster_guide(round):
     Monsters = create_monsters(round)
     print("\n-----------------------------------------")
@@ -184,16 +191,15 @@ def monster_guide(round):
     print("-----------------------------------------")
     for key,name in Monsters.items():
         print(
-                f"\033[38;2;255;108;167m    {name.name} \033[38;2;102;255;178m[ HP : {name.hp}/{name.max_hp} | 공격력 : {name.power}]  \033[0m")
+                f"\033[38;2;255;108;167m    {round}층의 {name.name} \033[38;2;102;255;178m[ HP : {name.hp}/{name.max_hp} | 공격력 : {name.power}]  \033[0m")
     print("\n-----------------------------------------")
 
 # ---------- 배틀 ----------
 
-
 def battle(Hero, Monsters, round):
     while True:
         show_start(Hero)  # 플레이어 상태
-        show_monster(Monsters)  # 몬스터 상태
+        show_monster(Monsters,round)  # 몬스터 상태
 
         # 플레이어 공격
         Monsters = player_turn(Hero, Monsters)
@@ -267,7 +273,7 @@ def store(Hero): # 상점
     item = 0
     while item != 4:
         print(
-            f"\n내 포인트 : {Hero.point}\n1. 회복물약 (100p) : HP +500\n2. 강화물약 (100p) : 공격력 +100\n3. 마법물약 (100p) : mp +100 \n4. 상점 나가기\n")
+            f"\n내 포인트 : {Hero.point}\n1. 회복물약 (1000p) : HP +500\n2. 강화물약 (1000p) : 공격력 +100\n3. 마법물약 (1000p) : mp +100 \n4. 상점 나가기\n")
         print("*"*30)
         item = int(input("구매 할 상품 번호:"))
         if item != 4:
