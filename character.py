@@ -1,6 +1,7 @@
 # 플레이어, 몬스터 정의 클래스 파일
 
 import random
+from time import sleep
 
 # ========================== 플레이어 (직업) ==========================
 
@@ -26,12 +27,15 @@ class Character:
         other.hp = max(other.hp - damage, 0)
         print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         if other.hp == 0:
-            print(f"{other.name}이(가) 쓰러졌습니다.")
+            sleep(0.5)
+            print(f"\n{other.name}이(가) 쓰러졌습니다.")
         else:
+            sleep(0.5)
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
     # 상태창
     def show_status(self):
+        sleep(0.5)
         print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp} MP {self.mp}/{self.max_mp}")
 
     '''
@@ -84,8 +88,10 @@ class Wizard(Character):
         print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
         if other.hp == 0:
+            sleep(0.5)
             print(f"{other.name}이(가) 쓰러졌습니다.")
         else:
+            sleep(0.5)
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
 
@@ -120,8 +126,10 @@ class Warrier(Character):
         print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
         if other.hp == 0:
+            sleep(0.5)
             print(f"{other.name}이(가) 쓰러졌습니다.")
         else:
+            sleep(0.5)
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
 
@@ -163,9 +171,11 @@ class Vampire(Character):
 
 
         if other.hp == 0:
+            sleep(0.5)
             print(f"{other.name}이(가) 쓰러졌습니다.")
 
         else:
+            sleep(0.5)
             print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
 
 
@@ -179,7 +189,9 @@ class Monster(Character):
         self.round = round
         
     def show_status(self):
+        sleep(0.5)
         print(f"{self.name}의 상태: HP {self.hp}/{self.max_hp}")
         
     def wait(self):  # 회피함수
+        sleep(0.5)
         print(f'\n\033[38;2;255;156;166m .. {self.name}의 공격이 빗나갔다!!\033[0m')

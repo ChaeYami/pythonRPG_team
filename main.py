@@ -4,11 +4,14 @@ from time import sleep
 from character import *
 from function import *
 
+start_story()
+
 global_job = get_job()  # 직업 가져오기
 
 
 def game():
 
+    
     round = 1
     
     # ---------- 직업 가져와서 저장 (global_job) ----------
@@ -33,7 +36,7 @@ def game():
             elif command == 2:  # 전투
                 round = round_play(Hero, round)
                 if round == 6:
-                    print("    공주님을 무사히 구해냈습니다! 당신은 최고의 용사 칭호를 얻었습니다!")
+                    input("    공주님을 무사히 구해냈습니다! 당신은 최고의 용사 칭호를 얻었습니다!")
                     break
 
             elif command == 3:  # 상점
@@ -46,12 +49,17 @@ def game():
                 monster_guide(round)
 
             elif command == 6:  # 종료
-                print("게임을 종료합니다.")
+                input("게임을 종료합니다.")
                 break
 
             else:
+                sleep(0.5)
                 print("\n올바른 값을 입력해주세요\n")
         except ValueError as e:
+            sleep(0.5)
             print("\n숫자로 입력해주세요\n")
 
 game()
+
+
+clear_console()
