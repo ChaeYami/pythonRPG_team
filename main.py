@@ -18,20 +18,9 @@ def game():
     '''
     global Hero
     Hero = player_job(round) # 함수로 플레이어 정보 다 받아옴
-    
-    
+        
     while 1:
         
-        # if global_job == 1:
-        #     Hero = Wizard(global_name, 10000, 2000, 3000, 400)
-
-        # elif global_job == 2:
-        #     Hero = Warrier(global_name, 12000, 2500, 3000, 250)
-
-        # elif global_job == 3:
-        #     Hero = Vampire(global_name, 10000, 2000, 2000, 250)
-        
-
         try:  # 수행 행동 숫자 외 선택 시 에러처리
             start()  # 실행시 출력화면
 
@@ -64,8 +53,5 @@ def game():
                 print("\n올바른 값을 입력해주세요\n")
         except ValueError as e:
             print("\n숫자로 입력해주세요\n")
-
-
-
 
 game()
