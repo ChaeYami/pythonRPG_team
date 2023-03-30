@@ -18,6 +18,7 @@ class Character:
         self.max_mp = mp
         self.mp = mp
         self.magic_power = magic_power
+        self.point = 0
 
     # 공격 함수 - 플레이어의 일반공격과 몬스터의 공격에서 모두 사용
     def attack(self, other):
@@ -63,6 +64,17 @@ class Wizard(Character):
 
         self.job = '마법사'  # 콘솔 출력을 위한 문자열
 
+    def attack(self, other):
+        damage = random.randint(self.power * 0.8, self.power * 1.2)
+        other.hp = max(other.hp - damage, 0)
+        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
+        self.point += round(damage*0.4)
+        print(f"\n   포인트 +{round(damage*0.4)}")
+        if other.hp == 0:
+            print(f"{other.name}이(가) 쓰러졌습니다.")
+        else:
+            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
+
     def magic_attack(self, other):  # 특수공격
         # 특수공격 데미지
         magic_damage = random.randint(
@@ -72,6 +84,8 @@ class Wizard(Character):
             f"\033[38;2;161;196;255m\n .. 매직 익스플로전!!! | MP -100 | {other.name}에게 {magic_damage}의 피해를 주었습니다!\033[0m")
 
         self.mp -= 100  # mp 소모
+        self.point += round(magic_damage*0.4)
+        print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
@@ -94,6 +108,17 @@ class Warrier(Character):
 
         self.job = '전사'  # 콘솔 출력을 위한 문자열
 
+    def attack(self, other):
+        damage = random.randint(self.power * 0.8, self.power * 1.2)
+        other.hp = max(other.hp - damage, 0)
+        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
+        self.point += round(damage*0.4)
+        print(f"\n   포인트 +{round(damage*0.4)}")
+        if other.hp == 0:
+            print(f"{other.name}이(가) 쓰러졌습니다.")
+        else:
+            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
+
     def magic_attack(self, other):
         magic_damage = random.randint(
             self.magic_power * 0.8, self.magic_power * 1.5)
@@ -103,6 +128,8 @@ class Warrier(Character):
             f"\033[38;2;161;196;255m\n .. 몸통박치기! | MP -50 | {other.name}에게 {magic_damage}의 피해를 주었습니다!\033[0m")
 
         self.mp -= 50
+        self.point += round(magic_damage*0.4)
+        print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
@@ -125,6 +152,17 @@ class Vampire(Character):
 
         self.job = '뱀파이어'  # 콘솔 출력을 위한 문자열
 
+    def attack(self, other):
+        damage = random.randint(self.power * 0.8, self.power * 1.2)
+        other.hp = max(other.hp - damage, 0)
+        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
+        self.point += round(damage*0.4)
+        print(f"\n   포인트 +{round(damage*0.4)}")
+        if other.hp == 0:
+            print(f"{other.name}이(가) 쓰러졌습니다.")
+        else:
+            print(f"\n{other.name} : {other.hp}/{other.max_hp} [HP]")
+
     def magic_attack(self, other):
         # 특수공격 데미지
         magic_damage = random.randint(
@@ -140,6 +178,8 @@ class Vampire(Character):
 
         self.hp += heal_amount  # 회복
         self.mp -= 50  # mp 소모
+        self.point += round(magic_damage*0.4)
+        print(f"\n   포인트 +{round(magic_damage*0.4)}")
 
         if other.hp == 0:
             print(f"{other.name}이(가) 쓰러졌습니다.")
