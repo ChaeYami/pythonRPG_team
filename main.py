@@ -46,7 +46,7 @@ def game():
                 show_start(Hero)
 
             elif command == 4:  # 몬스터 도감
-                monster_guide()
+                monster_guide(round)
 
             elif command == 5:  # 종료
                 print("게임을 종료합니다.")
