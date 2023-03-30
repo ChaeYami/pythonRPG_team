@@ -34,9 +34,10 @@ def start():
     print(" -------------------------------------------")
     print("\033[38;2;206;149;255m         1. 튜토리얼")
     print("         2. 전투")
-    print("         3. 내 정보 보기")
-    print("         4. 몬스터 도감")
-    print("         5. 종료\033[0m")
+    print("         3. 포인트 상점")
+    print("         4. 내 정보 보기")
+    print("         5. 몬스터 도감")
+    print("         6. 종료\033[0m")
     print(" -------------------------------------------")
 
 # ---------- 몬스터들을 저장 ----------
@@ -242,3 +243,32 @@ def round_play(Hero, round):
 
     Monsters = create_monsters(round)
     return battle(Hero, Monsters, round)
+
+
+# ---------- 상점 ----------
+
+def store_items(Hero, item, count):
+    if Hero.point < 100*count:
+        print("\n"+"포인트가 부족합니다!")
+    else:
+        if item == 1:  # 회복물약
+            Hero.hp += 500*count
+            Hero.point -= 100*count
+        if item == 2:  # 강화물약
+            Hero.power += 100*count
+            Hero.point -= 100*count
+        if item == 3:  # 마법물약
+            Hero.mp += 100*count
+            Hero.point -= 100*count
+
+
+def store(Hero):
+    print("\n"+"*"*15 + "상점" + "*"*15)
+    item = 0
+    while item != 4:
+        print(
+            f"\n내 포인트 : {Hero.point}\n1. 회복물약 (100p) : HP +500\n2. 강화물약 (100p) : 공격력 +100\n3. 마법물약 (100p) : mp +100 \n4. 상점 나가기\n")
+        item = int(input("구매 할 상품 번호:"))
+        if item != 4:
+            count = int(input("상품 수량:"))
+            store_items(Hero, item, count)
