@@ -44,10 +44,10 @@ def start():
 def create_monsters(round):
     Monsters = {}
 
-    Monsters['종민몬'] = Monster('종민몬', round*1000+500, round*500+500, round)
-    Monsters['탁근몬'] = Monster('탁근몬', round*1000, round*500, round)
-    Monsters['영우몬'] = Monster('영우몬', round*1000+1000, round*500+1000, round)
-    Monsters['진규몬'] = Monster('진규몬', round*1000+500, round*500+500, round)
+    Monsters['종민몬'] = Monster('종민몬', round*100+500, round*500+500, round)
+    Monsters['탁근몬'] = Monster('탁근몬', round*100, round*500, round)
+    Monsters['영우몬'] = Monster('영우몬', round*100+1000, round*500+1000, round)
+    Monsters['진규몬'] = Monster('진규몬', round*100+500, round*500+500, round)
 
     return Monsters
 
