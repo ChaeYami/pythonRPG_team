@@ -14,15 +14,18 @@ def game():
 
     # ---------- 직업 가져와서 저장 (global_job) ----------
     while 1:
+        global Hero
+        Hero = player_job(round) # 함수로 플레이어 정보 다 받아옴
 
-        if global_job == 1:
-            Hero = Wizard(global_name, 10000, 2000, 3000, 400)
+        
+        # if global_job == 1:
+        #     Hero = Wizard(global_name, 10000, 2000, 3000, 400)
 
-        elif global_job == 2:
-            Hero = Warrier(global_name, 12000, 2500, 3000, 250)
+        # elif global_job == 2:
+        #     Hero = Warrier(global_name, 12000, 2500, 3000, 250)
 
-        elif global_job == 3:
-            Hero = Vampire(global_name, 10000, 2000, 2000, 250)
+        # elif global_job == 3:
+        #     Hero = Vampire(global_name, 10000, 2000, 2000, 250)
 
         try:  # 수행 행동 숫자 외 선택 시 에러처리
             start()  # 실행시 출력화면
@@ -36,7 +39,7 @@ def game():
             elif command == 2:  # 전투
                 round = round_play(Hero, round)
                 if round == 6:
-                    print("몬스터를 모두 물리치고 왕국을 무사히 지켰습니다!")
+                    print("    공주님을 무사히 구해냈습니다! 당신은 최고의 용사 칭호를 얻었습니다!")
                     break
 
             elif command == 3:  # 내 정보 보기

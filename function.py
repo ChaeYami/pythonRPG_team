@@ -51,6 +51,22 @@ def create_monsters(round):
 
     return Monsters
 
+# ---------- 라운드가 진행될 때 마다 강해지는 플레이어 ----------
+Hero = None 
+def player_job(round):
+    global Hero
+    num = (round-1)*100
+    if global_job == 1:
+        Hero = Wizard(global_name, 10000+num, 2000+num, 3000+num, 400)
+
+    elif global_job == 2:
+        Hero = Warrier(global_name, 12000+num, 2500+num, 3000+num, 250)
+
+    elif global_job == 3:
+        Hero = Vampire(global_name, 10000+num, 2000+num, 2000+num, 250)
+        
+    return Hero
+
 # ---------- 플레이어 상태 ----------
 
 
@@ -67,7 +83,7 @@ def show_start(Player):
 
 
 def show_monster(Monsters):
-    print("\033[38;2;255;177;108m\n     야생의 몬스터들이 등장했다! \n\033[0m")
+    print("\033[38;2;255;177;108m\n     탑을 지키는 몬스터들이 등장했다! \n\033[0m")
 
     for key, name in Monsters.items():  # 몬스터들의 상태 표시
 
@@ -182,10 +198,10 @@ def battle(Hero, Monsters, round):
         Monsters, game_over = monster_death(Monsters)
         if game_over:
             print("\n==================== 승리 ====================")
-            print("모든 몬스터를 물리쳤습니다! 라운드 종료!") 
+            print("\n이 층의 모든 몬스터를 물리쳤습니다!\n") 
             round += 1
             if round < 6:
-                print("다음 라운드로 넘어가려면 전투를 선택하세요") # 03/30 14:46 수정 (문구 추가)
+                print("다음 층으로 넘어가려면 전투를 선택하세요") # 03/30 14:46 수정 (문구 추가)
             break
         
 
@@ -207,18 +223,18 @@ def battle(Hero, Monsters, round):
 def round_play(Hero, round):
     print("\n\n -------------------------------------------------------")
     print(
-        f"\033[38;2;81;169;255m                     ROUND {round}                    \033[0m")
+        f"\033[38;2;81;169;255m                     --{round}층--                    \033[0m")
     if round == 1:
         print(
-            f" 어느날 르탄이가 공주님을 납치했다! \n 몬스터를 물리치고 공주님을 구하기 위한 {global_name}용사님의 여정이 시작된다!")
+            f"\n .. 어느날 르탄이가 공주님을 납치했다! \n 몬스터를 물리치고 탑 꼭대기에 올라 공주님을 구하기 위한 {global_name}용사님의 여정이 시작된다!")
     elif round == 2:
-        print("2라운드 설명")
+        print("\n.. 2층으로 올라왔다. 몬스터들이 더 강해져서 돌아왔다!")
     elif round == 3:
-        print("3라운드 설명")
+        print("\n.. 3층이다... 몬스터들이 이상한 모습으로 강해진다...")
     elif round == 4:
-        print("4라운드 설명")
+        print(f"\n.. 4층에 다다르자 더욱 더 커지고 강해진 몬스터들이 보인다. 그렇지만 {global_name}용사님은 포기하지 않지!")
     else:
-        print("5라운드 설명")
+        print("\n.. 마지막 5층이다. 이 관문을 넘어서면 공주님이 계신 꼭대기에 도착할 수 있다!!")
 
     Monsters = create_monsters(round)
     return battle(Hero, Monsters, round)
