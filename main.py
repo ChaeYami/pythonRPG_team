@@ -20,7 +20,7 @@ def game():
     얘만 밖으로 뺐더니 잘 되네요!
     '''
     global Hero
-    Hero = player_job(round) # 함수로 플레이어 정보 다 받아옴
+    Hero = player_job() # 함수로 플레이어 정보 다 받아옴
         
     while 1:
         

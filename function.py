@@ -59,39 +59,50 @@ def create_monsters(round):
     Monsters = {}
 
     Monsters['종민몬'] = Monster('종민몬', round*100+500, round*500+500, round)
-    Monsters['탁근몬'] = Monster('탁근몬', round*100, round*500, round)
+    Monsters['탁근몬'] = Monster('탁근몬', round*100+300, round*500+500, round)
     Monsters['영우몬'] = Monster('영우몬', round*100+1000, round*500+1000, round)
     Monsters['진규몬'] = Monster('진규몬', round*100+500, round*500+500, round)
 
     return Monsters
 
-# ---------- 라운드가 진행될 때 마다 강해지는 플레이어 ----------
+# ---------- 플레이어 ----------
 Hero = None 
-def player_job(round):
+def player_job():
     global Hero
-    num = (round-1)*100
+    # num = (round-1)*100
     if global_job == 1:
-        Hero = Wizard(global_name, 10000+num, 2000+num, 3000+num, 400)
+        Hero = Wizard(global_name, 10000, 2000, 3000, 400, 0 ,1)
 
     elif global_job == 2:
-        Hero = Warrier(global_name, 12000+num, 2500+num, 3000+num, 300)
+        Hero = Warrier(global_name, 12000, 2500, 3000, 300, 0 ,1)
 
     elif global_job == 3:
-        Hero = Vampire(global_name, 10000+num, 2000+num, 2000+num, 300)
+        Hero = Vampire(global_name, 10000, 2000, 2000, 300, 0 ,1)
         
     return Hero
+
 
 # ---------- 플레이어 상태 ----------
 
 
 def show_start(Player):
     sleep(0.5)
+    
+    n_bars = 20  # 막대의 총 길이
+    ratio = (Player.exp)*0.01
+    n_filled = int(ratio * n_bars)  # 채워진 막대의 길이
+    n_empty = n_bars - n_filled  # 빈 막대의 길이
+
+    bar = "█" * n_filled + " " * n_empty  # 채워진 막대와 빈 막대를 합친 문자열
+    
     print("\n\n--------------------------------------------------------------------")
     print(
         f"\033[38;2;255;177;108m          ♥ ♥ {Player.name}용사님 등장!! ♥ ♥\033[0m")
     print("--------------------------------------------------------------------")
     print(
-        f"\033[38;2;102;255;178m HP : {Player.hp}/{Player.max_hp} | MP : {Player.mp}/{Player.max_mp} | 공격력 : {Player.power} | 직업 : {Player.job}\033[0m")
+        f"\033[38;2;102;255;178m HP : {Player.hp}/{Player.max_hp} | MP : {Player.mp}/{Player.max_mp} | 공격력 : {int(Player.power)} | 직업 : {Player.job} ")
+    print(f"\033[38;2;255;108;167m\n lv : {Player.lv}\033[0m", end='')
+    print("   exp |{}| {:.0%}\033[0m".format(bar, ratio)) 
     input("--------------------------------------------------------------------\n")
 
 # ---------- 몬스터 상태 ----------
@@ -186,9 +197,10 @@ def monster_death(Monsters):
     for key, name in Monsters.items():
         if name.hp <= 0:
             dead_monsters.append(key)
-
-    for name in dead_monsters:
-        del Monsters[name]
+            
+    dead_monsters.sort()
+    for i in reversed(dead_monsters):
+        del Monsters[i]
 
     if len(Monsters) <= 0:
         return Monsters, True
@@ -333,6 +345,9 @@ def store(Hero): # 상점
             count = int(input("상품 수량:"))
             store_items(Hero, item, count)
             
-            
+
+
+
+
 def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
