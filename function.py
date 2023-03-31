@@ -5,15 +5,22 @@ from character import *
 from random import choices
 from time import sleep
 
+star = "\U0001F31F"
+dragon = "\U0001F432"
+rainbow = "\U0001F308"
+stop = "\U0001F6AB"
+fairy = "\U0001F9DA"
+fire = "\U0001F525"
+
 def start_story():
     sleep(1)
-    print(f"\n .. 어느날 르탄이가 공주님을 납치했다!") 
+    print(f"\n .. 어느날 르탄이가 공주님을 납치했다!" + dragon) 
     sleep(1)
     print("\n 공주님은 탑 꼭대기에 갇혀있었고...")
     sleep(1)
-    print("\n 각 층의 위로 향하는 문 앞에는 매번 문지기들이 지키고 있었다...")
+    print("\n 각 층의 위로 향하는 문 앞에는 매번 문지기들이 지키고 있었다..." + dragon)
     sleep(1)
-    input(f"\n 몬스터를 물리치고 탑 꼭대기에 올라 공주님을 구하기 위한 {global_name}용사님의 여정이 시작된다!")
+    input("\n " +fire+ f" 몬스터를 물리치고 탑 꼭대기에 올라 공주님을 구하기 위한 {global_name}용사님의 여정이 시작된다!" +fire)
     sleep(0.5)
     print("\n\n 게임을 시작하기 전에 먼저 직업을 선택하세요")
     sleep(1)
@@ -43,7 +50,7 @@ def start():
     sleep(1)
     print("\n\n -------------------------------------------")
     print(
-        f"\033[38;2;81;169;255m       ~용사님의 대모험~       ♥{global_name}용사님♥ \033[0m")
+        "\033[38;2;81;169;255m       "+star+"~용사님의 대모험~"+star+f"       ♥{global_name}용사님♥ \033[0m")
     print(" -------------------------------------------")
     print("\033[38;2;206;149;255m         1. 튜토리얼")
     print("         2. 전투")
