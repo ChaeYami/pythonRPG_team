@@ -94,14 +94,9 @@ class Wizard(Character):
     def attack(self, other):
         super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
         
-
+        
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
-        
-        
         self.point += round(damage*0.4)
-        
         print(f"\n   포인트 +{round(damage*0.4)}")
 
         if other.hp == 0:
@@ -185,8 +180,6 @@ class Warrier(Character):
         super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
 
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         self.point += round(damage*0.4)
         print(f"\n   포인트 +{round(damage*0.4)}")
 
@@ -244,8 +237,6 @@ class Vampire(Character):
         super().attack(other) # 포인트를 제외한 부분은 부모 클래스의 attack 함수와 같음
 
         damage = random.randint(self.power * 0.8, self.power * 1.2)
-        other.hp = max(other.hp - damage, 0)
-        print(f"\n{self.name}의 공격! {other.name}에게 {damage}의 데미지를 입혔습니다.")
         self.point += round(damage*0.4)
         print(f"\n   포인트 +{round(damage*0.4)}")
 

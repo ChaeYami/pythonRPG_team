@@ -46,7 +46,7 @@ def game():
             elif command == 2:  # 전투
                 round = round_play(Hero, round)
                 if round == 6:
-                    input("    공주님을 무사히 구해냈습니다! 당신은 최고의 용사 칭호를 얻었습니다!")
+                    input("    공주님을 무사히 구해냈습니다! 당신은 최고의 용사 칭호를 얻었습니다!\n\n")
                     break
 
             elif command == 3:  # 상점
