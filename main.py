@@ -4,6 +4,16 @@ from time import sleep
 from character import *
 from function import *
 
+star = "\U0001F320"
+dragon = "\U0001F432"
+rainbow = "\U0001F308"
+stop = "\U0001F6AB"
+fairy = "\U0001F9DA"
+
+
+sleep(1)
+print("\n ==============="+rainbow+" GAME START "+rainbow+"===============")
+
 start_story()
 
 global_job = get_job()  # 직업 가져오기

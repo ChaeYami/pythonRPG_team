@@ -40,7 +40,7 @@ class Character:
             if self.exp > 100 :
                 self.lv += 1
                 sleep(0.5)
-                print("레벨 1 증가") 
+                print("\033[38;2;255;108;167m\n ** LEVEL UP **\033[0m ") 
                 
                 self.exp = self.exp - 100
                 self.power += self.power*0.1 # 레벨업시 공격력, 최대 마력 ,최대 체력이 커지는 걸로
@@ -113,7 +113,7 @@ class Wizard(Character):
             if self.exp > 100 :
                 self.lv += 1
                 sleep(0.5)
-                print("레벨 1 증가") 
+                print("\033[38;2;255;108;167m\n ** LEVEL UP **\033[0m ") 
                 
                 self.exp = self.exp - 100
                 self.power += self.power*0.1 # 레벨업시 공격력, 최대 마력 ,최대 체력이 커지는 걸로
@@ -153,7 +153,7 @@ class Wizard(Character):
             if self.exp > 100 :
                 self.lv += 1
                 sleep(0.5)
-                print("레벨 1 증가") 
+                print("\033[38;2;255;108;167m\n ** LEVEL UP **\033[0m ") 
                 self.exp = self.exp - 100
                 self.power += self.power*0.1
                 self.max_hp += int(self.max_hp * 0.1)
@@ -213,7 +213,7 @@ class Warrier(Character):
             if self.exp > 100 :
                 self.lv += 1
                 sleep(0.5)
-                print("레벨 1 증가") 
+                print("\033[38;2;255;108;167m\n ** LEVEL UP **\033[0m ") 
                 self.exp = self.exp - 100
                 self.power += self.power*0.1
                 self.max_hp += int(self.max_hp * 0.1)
@@ -277,7 +277,7 @@ class Vampire(Character):
             if self.exp > 100 :
                 self.lv += 1
                 sleep(0.5)
-                print("레벨 1 증가") 
+                print("\033[38;2;255;108;167m\n ** LEVEL UP **\033[0m ") 
                 self.exp = self.exp - 100
                 self.power += self.power*0.1
                 self.max_hp += int(self.max_hp * 0.1)
